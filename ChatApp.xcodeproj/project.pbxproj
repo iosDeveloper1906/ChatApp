@@ -22,6 +22,8 @@
 		7CB4D8DE2CEE37FE008CF0CC /* PhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB4D8DD2CEE37FE008CF0CC /* PhotoViewerViewController.swift */; };
 		7CB4D8E02CEE3811008CF0CC /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB4D8DF2CEE3811008CF0CC /* NewConversationViewController.swift */; };
 		7CB4D8E22CEE381B008CF0CC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB4D8E12CEE381B008CF0CC /* ProfileViewController.swift */; };
+		7CB4D8E52CEE3C2D008CF0CC /* CostantValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB4D8E42CEE3C2D008CF0CC /* CostantValue.swift */; };
+		7CB4D8E72CEE4ABA008CF0CC /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB4D8E62CEE4ABA008CF0CC /* ViewExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		7CB4D8DD2CEE37FE008CF0CC /* PhotoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerViewController.swift; sourceTree = "<group>"; };
 		7CB4D8DF2CEE3811008CF0CC /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		7CB4D8E12CEE381B008CF0CC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		7CB4D8E42CEE3C2D008CF0CC /* CostantValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostantValue.swift; sourceTree = "<group>"; };
+		7CB4D8E62CEE4ABA008CF0CC /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,7 @@
 		7CB4D8A12CEE34EC008CF0CC /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
+				7CB4D8E32CEE3C1D008CF0CC /* Utility */,
 				7CB4D8D62CEE35CA008CF0CC /* ViewModels */,
 				7CB4D8D52CEE35B8008CF0CC /* Resources */,
 				7CB4D8D42CEE35B3008CF0CC /* Models */,
@@ -183,6 +188,15 @@
 			children = (
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		7CB4D8E32CEE3C1D008CF0CC /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				7CB4D8E42CEE3C2D008CF0CC /* CostantValue.swift */,
+				7CB4D8E62CEE4ABA008CF0CC /* ViewExtension.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,6 +336,8 @@
 				7CB4D8A32CEE34EC008CF0CC /* AppDelegate.swift in Sources */,
 				7CB4D8DE2CEE37FE008CF0CC /* PhotoViewerViewController.swift in Sources */,
 				7CB4D8DC2CEE37E5008CF0CC /* VideoPlayerViewController.swift in Sources */,
+				7CB4D8E72CEE4ABA008CF0CC /* ViewExtension.swift in Sources */,
+				7CB4D8E52CEE3C2D008CF0CC /* CostantValue.swift in Sources */,
 				7CB4D8E22CEE381B008CF0CC /* ProfileViewController.swift in Sources */,
 				7CB4D8A52CEE34EC008CF0CC /* SceneDelegate.swift in Sources */,
 				7CB4D8DA2CEE37DA008CF0CC /* RegistrationViewController.swift in Sources */,
