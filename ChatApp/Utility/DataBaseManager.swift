@@ -15,12 +15,19 @@ final class DataBaseManager {
     private let database = Database.database().reference()
     
     
-    public func insertUser(with user: User){
+    public func insertUser(with user: User, completion: @escaping ( (Bool) -> Void) ){
         
-        database.child(user.safeEmail ?? "").setValue([
+        database.child(user.safeEmail).setValue([
             "first_name": user.firstName ?? "",
             "last_name": user.lastName ?? ""
-        ])
+        ]) { error, _ in
+            guard error == nil else {
+                completion(false)
+                return
+            }
+            
+            completion(true)
+        }
     }
     
     public func validateEmail(with email: String, completion : @escaping( (Bool) -> Void)){

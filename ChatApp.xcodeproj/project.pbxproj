@@ -41,6 +41,8 @@
 		7CEFD1DD2CF2FF0E00472555 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEFD1DC2CF2FF0E00472555 /* ChatViewController.swift */; };
 		7CEFD1DF2CF3022E00472555 /* MessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEFD1DE2CF3022E00472555 /* MessageModel.swift */; };
 		7CEFD1E12CF3027600472555 /* SenderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEFD1E02CF3027600472555 /* SenderModel.swift */; };
+		7CEFD1E32CF31E6900472555 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 7CEFD1E22CF31E6900472555 /* FirebaseStorage */; };
+		7CEFD1E52CF31FBA00472555 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEFD1E42CF31FB900472555 /* StorageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +108,7 @@
 		7CEFD1DC2CF2FF0E00472555 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		7CEFD1DE2CF3022E00472555 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
 		7CEFD1E02CF3027600472555 /* SenderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderModel.swift; sourceTree = "<group>"; };
+		7CEFD1E42CF31FB900472555 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,7 @@
 				7CB4D8EE2CEFA98B008CF0CC /* FirebaseDatabase in Frameworks */,
 				7CB4D8EC2CEFA98B008CF0CC /* FirebaseCore in Frameworks */,
 				7CB4D8EA2CEFA98B008CF0CC /* FirebaseAuth in Frameworks */,
+				7CEFD1E32CF31E6900472555 /* FirebaseStorage in Frameworks */,
 				7CEFD1D22CF2FE0C00472555 /* MessageKit in Frameworks */,
 				7CEFD1D42CF2FE1400472555 /* JGProgressHUD in Frameworks */,
 			);
@@ -243,6 +247,7 @@
 				7CB4D8E62CEE4ABA008CF0CC /* ViewExtension.swift */,
 				7CEFD1C22CF2144700472555 /* DataBaseManager.swift */,
 				7CEFD1CB2CF2452F00472555 /* TestTableViewCell.swift */,
+				7CEFD1E42CF31FB900472555 /* StorageManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -288,6 +293,7 @@
 				7CEFD1D12CF2FE0C00472555 /* MessageKit */,
 				7CEFD1D32CF2FE1400472555 /* JGProgressHUD */,
 				7CEFD1D52CF2FE2100472555 /* Realm */,
+				7CEFD1E22CF31E6900472555 /* FirebaseStorage */,
 			);
 			productName = ChatApp;
 			productReference = 7CB4D89F2CEE34EC008CF0CC /* ChatApp.app */;
@@ -414,6 +420,7 @@
 				7CB4D8D82CEE37CD008CF0CC /* LoginViewController.swift in Sources */,
 				7CB4D8A72CEE34EC008CF0CC /* ConversationViewController.swift in Sources */,
 				7CEFD1E12CF3027600472555 /* SenderModel.swift in Sources */,
+				7CEFD1E52CF31FBA00472555 /* StorageManager.swift in Sources */,
 				7CB4D8E02CEE3811008CF0CC /* NewConversationViewController.swift in Sources */,
 				7CEFD1C12CF20C9F00472555 /* SplashViewController.swift in Sources */,
 				7CEFD1CC2CF2452F00472555 /* TestTableViewCell.swift in Sources */,
@@ -837,6 +844,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7CEFD1CE2CF2FBF200472555 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = Realm;
+		};
+		7CEFD1E22CF31E6900472555 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7CB4D8E82CEFA98B008CF0CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

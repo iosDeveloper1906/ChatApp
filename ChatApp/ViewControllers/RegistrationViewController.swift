@@ -206,10 +206,35 @@ class RegistrationViewController: UIViewController {
                }
                
                
-               let user = authResult.user
                
+               let user = User(firstName: firstNameValue, lastName: lastNameValue, emailID: emailValue)
                
-               DataBaseManager.shared.insertUser(with: User(firstName: firstNameValue, lastName: lastNameValue, emailID: emailValue))
+               DataBaseManager.shared.insertUser(with: user, completion: { success in
+                  
+                   if success {
+                    
+                       guard let image = strongSelf.imageView.image, let data = image.pngData() else {
+                           return
+                       }
+                       
+                       let fileName = user.profilePictureFileName
+                       StorageManager.shared.uploadProfilePic(with: data, fileName: fileName) { result in
+                           
+                           switch result {
+                               
+                           case .success(let downloadURL):
+                               UserDefaults.standard.set(downloadURL, forKey: "profile_pic_img")
+                               debugPrint(downloadURL)
+                           case .failure(let error):
+                               debugPrint(error)
+                           }
+                           
+                       }
+                       
+                   }
+               }
+               
+               )
                
                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
                let vc = storyBoard.instantiateViewController(withIdentifier: "Dashboard")
