@@ -174,8 +174,8 @@ class RegistrationViewController: UIViewController {
     
     
    @objc private func validation() {
-        guard let email = emailField.text,let password = password.text,
-              let firstNama = firstName.text, let lastName = lastName.text,
+        guard let emailValue = emailField.text,let password = password.text,
+              let firstNameValue = firstName.text, let lastNameValue = lastName.text,
               password.count >= 6 else {
             
                errorAlert()
@@ -183,16 +183,44 @@ class RegistrationViewController: UIViewController {
             
         }
        
-    
-       FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { result, error in
-           guard let authResult = result, error == nil else {
-               debugPrint("Error occured while creating user")
+       DataBaseManager.shared.validateEmail(with: emailValue) { [weak self]exists in
+           
+           guard let strongSelf = self else{
                return
            }
            
-           let user = authResult.user
-           debugPrint("New user is \(user)")
+           guard !exists else {
+               strongSelf.errorAlert(message: "Looks like a user account for that email addesss already exisits.")
+               return
+           }
+           
+           FirebaseAuth.Auth.auth().createUser(withEmail: emailValue, password: password) { [weak self] result, error in
+               
+               guard let strongSelf = self else {
+                   return
+               }
+               
+               guard let authResult = result, error == nil else {
+                   debugPrint("Error occured while creating user")
+                   return
+               }
+               
+               
+               let user = authResult.user
+               
+               
+               DataBaseManager.shared.insertUser(with: User(firstName: firstNameValue, lastName: lastNameValue, emailID: emailValue))
+               
+               let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+               let vc = storyBoard.instantiateViewController(withIdentifier: "Dashboard")
+               strongSelf.navigationController?.pushViewController(vc, animated: true)
+               strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+               
+           }
        }
+       
+    
+       
     }
     
     @objc private func profileImage(){
@@ -200,9 +228,9 @@ class RegistrationViewController: UIViewController {
     }
     
     
-    private func errorAlert(){
+    private func errorAlert(message: String = "Please enter all the information to register"){
         
-        let alert = UIAlertController(title: "Woops", message: "Please enter all the information to register", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Woops", message: message, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(alert, animated: true)

@@ -6,24 +6,58 @@
 //
 
 import UIKit
+import MessageKit
 
-class ChatViewController: UIViewController {
 
+
+class ChatViewController: MessagesViewController{
+    
+    private var message = [Message]()
+    private var sender = Sender(senderId: "1",
+                                displayName: "Vaibhav",
+                                photo: "")
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        
+       
+        
+        messagesCollectionView.messagesDataSource = self
+        messagesCollectionView.messagesLayoutDelegate = self
+        messagesCollectionView.messagesDisplayDelegate = self
+        
+        message.append(Message(sender: sender,
+                               messageId: "1",
+                               sentDate: Date(),
+                               kind: .text("Hello Vaibhav")))
+        
+        message.append(Message(sender: sender,
+                               messageId: "1",
+                               sentDate: Date(),
+                               kind: .text("Common your doing great keep it up")))
+        
+        messagesCollectionView.reloadData()
     }
     
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension ChatViewController : MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
+    
+    
+    var currentSender: any MessageKit.SenderType {
+        return sender
     }
-    */
-
+    
+    func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessageKit.MessagesCollectionView) -> any MessageKit.MessageType {
+        return message[indexPath.section]
+    }
+    
+    func numberOfSections(in messagesCollectionView: MessageKit.MessagesCollectionView) -> Int {
+        debugPrint(message.count)
+        return message.count
+    }
+    
+    
 }

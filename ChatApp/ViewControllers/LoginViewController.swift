@@ -7,8 +7,11 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
+    
+    private let spinner = JGProgressHUD(style: .dark)
     
     private let imageView : UIImageView = {
         let imageView = UIImageView()
@@ -70,9 +73,12 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+      
+        
         emailField.delegate = self
         password.delegate = self
         
+        self.navigationItem.setHidesBackButton(true, animated: false)
         title = "Log In"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", style: .done, target: self, action: #selector(didTapRegister))
         
@@ -122,6 +128,11 @@ class LoginViewController: UIViewController {
     }
     
     
+   
+    
+  
+    
+    
     @objc private func logInButtonTaped() {
         
         emailField.resignFirstResponder()
@@ -132,16 +143,28 @@ class LoginViewController: UIViewController {
                     alertUserLoginError()
                     return
                 }
-        
-        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+        spinner.show(in: view)
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) {[weak self] authResult, error in
             
+            guard let strongSelf = self else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                strongSelf.spinner.dismiss()
+            }
             guard let result = authResult, error == nil else {
                 debugPrint("Please enter correct email/password")
                 return
             }
             
             let user = result.user
-            debugPrint("Logged in \(user)")
+           
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyBoard.instantiateViewController(withIdentifier: "Dashboard")
+            strongSelf.navigationController?.pushViewController(vc, animated: true)
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            
         }
     }
     

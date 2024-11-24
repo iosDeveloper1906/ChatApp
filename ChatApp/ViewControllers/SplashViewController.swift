@@ -6,24 +6,39 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SplashViewController: UIViewController {
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        moveToNext()
+
+    }
+    
+    
+    func moveToNext(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            
+            if FirebaseAuth.Auth.auth().currentUser == nil {
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyBoard.instantiateViewController(withIdentifier: "Login")
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else{
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyBoard.instantiateViewController(withIdentifier: "Dashboard")
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+        
+        
+        }
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
 
 }
