@@ -102,7 +102,6 @@ class LoginViewController: UIViewController {
         scrollView.frame = view.frame
         
         let size = scrollView.width / 3
-        debugPrint(size)
         imageView.frame = CGRect(x: (scrollView.width-size) / 2,
                                  y: 20,
                                  width: size,
@@ -159,7 +158,7 @@ class LoginViewController: UIViewController {
             }
             
             let user = result.user
-           
+            UserDefaults.standard.setValue(email, forKey: Constants.UserEmail)
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyBoard.instantiateViewController(withIdentifier: "Dashboard")
             strongSelf.navigationController?.pushViewController(vc, animated: true)

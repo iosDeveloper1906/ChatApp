@@ -14,6 +14,13 @@ final class DataBaseManager {
     
     private let database = Database.database().reference()
     
+    static func safeEmail(with emailAddress: String) -> String{
+        var safeEmail = emailAddress.replacingOccurrences(of: ".", with: "-")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+        
+        return safeEmail
+    }
+    
     
     public func insertUser(with user: User, completion: @escaping ( (Bool) -> Void) ){
         

@@ -21,6 +21,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.tableHeaderView = createTableHeader()
         
     
     }
@@ -49,6 +50,66 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        logOutAlert()
        
+    }
+    
+    private func createTableHeader() -> UIView{
+        
+        guard let email = UserDefaults.standard.value(forKey: Constants.UserEmail) as? String else {
+            return UIView()
+        }
+        
+        let safeEmail = DataBaseManager.safeEmail(with: email)
+        let fileName = "\(safeEmail)_profile_pic"
+        let path = "image/"+fileName
+    
+        let headerView = UIView(frame: CGRect(x: 0,
+                                              y: 0,
+                                              width: self.view.width,
+                                              height: 300))
+        
+        headerView.backgroundColor = .link
+        let imageView = UIImageView(frame: CGRect(x: (headerView.width-150)/2,
+                                                  y: 75,
+                                                  width: 150,
+                                                  height: 150))
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.backgroundColor = .white
+        imageView.layer.borderWidth = 3
+        imageView.layer.cornerRadius = imageView.width/2
+        imageView.layer.masksToBounds = true
+        headerView.addSubview(imageView)
+        debugPrint("FileName \(path)")
+        StorageManager.shared.downloadURL(with: path) {[weak self] result in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            switch result {
+                
+            case .success( let url):
+                debugPrint(url)
+                strongSelf.downloadImage(imageView: imageView, url: url)
+            case .failure(let error):
+                debugPrint("Error \(error)")
+            }
+        }
+        
+        
+        return headerView
+    }
+    
+    func downloadImage(imageView: UIImageView, url: URL){
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let imageData = data, error == nil else{
+                return
+            }
+            DispatchQueue.main.async {
+                let image = UIImage(data: imageData)
+                imageView.image = image
+            }
+           
+        }.resume()
     }
     
     
