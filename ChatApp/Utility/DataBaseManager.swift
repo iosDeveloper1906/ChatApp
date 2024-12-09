@@ -33,7 +33,49 @@ final class DataBaseManager {
                 return
             }
             
-            completion(true)
+            self.database.child("users").observeSingleEvent(of: .value) { snapShot, _  in
+                
+                if var userCollection = snapShot.value as? [[String: String]]{
+                    
+                    let newCollection = [
+                        [
+                            "name": (user.firstName ?? "") + " " + (user.lastName ?? ""),
+                            "email": user.emailID ?? ""
+                        ]
+                    
+                    ]
+                    
+                    userCollection.append(contentsOf: newCollection)
+                    self.database.child("users").setValue(userCollection) { error, _ in
+                        guard error == nil else {
+                            completion(false)
+                            return
+                        }
+                        
+                        completion(true)
+                    }
+                    
+                    
+                }else {
+                    let newCollection: [[String: String]] = [
+                        [
+                            "name": (user.firstName ?? "") + " " + (user.lastName ?? ""),
+                            "email": user.emailID ?? ""
+                        ]
+                    
+                    ]
+                    
+                    self.database.child("users").setValue(newCollection) { error, _ in
+                        guard error == nil else {
+                            completion(false)
+                            return
+                        }
+                        
+                        completion(true)
+                    }
+                }
+            }
+            
         }
     }
     
@@ -52,6 +94,26 @@ final class DataBaseManager {
             
             completion(true)
         }
+    }
+    
+    public func fetchUsers(completion: @escaping ( Result<[[String: String]], Error> ) -> Void){
+        
+        database.child("users").observeSingleEvent(of: .value) { snapShot in
+            
+            guard let value = snapShot.value as? [[String:String]] else {
+                
+                completion(.failure(DataBaseError.failedToFetch))
+                return
+            }
+            
+            completion(.success(value))
+        }
+        
+    }
+    
+    
+    public enum DataBaseError : Error {
+        case failedToFetch
     }
     
 }
